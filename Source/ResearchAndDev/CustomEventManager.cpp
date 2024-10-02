@@ -22,7 +22,8 @@ UCustomEventManager* UCustomEventManager::GetInstance(UObject* WorldddContectObj
 	return instance;
 }
 
-void UCustomEventManager::AddListener(UObject* listener, FName eventName)
+template <typename T>
+void UCustomEventManager::AddListener(T* listener, FName eventName, void(T::* Func)(int32))
 {
 	if (!eventMap.Contains(eventName))
 	{
@@ -30,15 +31,16 @@ void UCustomEventManager::AddListener(UObject* listener, FName eventName)
 	}
 
 	FGenericEvent& event = eventMap[eventName];
-	event.AddDynamic(listener, &UObject::ProcessEvent);
+	event.AddDynamic(listener, Func);
 }
 
-void UCustomEventManager::RemoveListener(UObject* listener, FName eventName)
+template <typename T>
+void UCustomEventManager::RemoveListener(T* listener, FName eventName, void(T::* Func)(int32))
 {
 	if (!eventMap.Contains(eventName))
 	{
 		FGenericEvent& event = eventMap[eventName];
-		event.RemoveDynamic(listener, &UObject::ProcessEvent);
+		event.RemoveDynamic(listener, Func);
 	}
 }
 

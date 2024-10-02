@@ -35,7 +35,7 @@ void ASingletonTest::Tick(float DeltaTime)
 
 void ASingletonTest::GetGameInstanceAndPrintMessage()
 {
-	nomralGameInstance = Cast < UNormalGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	nomralGameInstance = Cast<UNormalGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 
 	nomralGameInstance->messageForPrinting = "Printed From Singleton Test";
 	nomralGameInstance->PrintFromCPP();

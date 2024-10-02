@@ -17,11 +17,11 @@ public:
 
 	static UCustomEventManager* GetInstance(UObject* WorldddContectObject);
 
-	UFUNCTION(BlueprintCallable, Category = "Events")
-	void AddListener(UObject* listener, FName eventName);
+	template<typename T>
+	void AddListener(T* listener, FName eventName, void(T::* Func)(int32));
 
-	UFUNCTION(BlueprintCallable, Category = "Events")
-	void RemoveListener(UObject* listener, FName eventName);
+	template<typename T>
+	void RemoveListener(T* listener, FName eventName, void(T::* Func)(int32));
 
 	UFUNCTION(BlueprintCallable, Category = "Events")
 	void AddEvent(FName EventName, int32 Param);
